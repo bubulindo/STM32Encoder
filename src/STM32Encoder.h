@@ -27,8 +27,8 @@
 
 
 
-#ifndef _ENCODER_H_
-#define _ENCODER_H_
+#ifndef _STM32ENCODER_H_
+#define _STM32ENCODER_H_
 
 class STM32Encoder {
 	private: 

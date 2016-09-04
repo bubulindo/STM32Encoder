@@ -1,17 +1,24 @@
-#include <Encoder.h>
+#include <STM32Encoder.h>
+/*
+For Maple Mini: 
+
+Timer 1, channels are at 26 and 27. 
+The example below was tested on an Olimexino
+*/
+
 
 long revolutions = 0;//revolution counter
 
 //Encoder stuff...
-Encoder enc(TIMER1, COUNT_BOTH_CHANNELS, 1, 100); //prescaler of one with 100 pulses per revolution.
+STM32Encoder enc(TIMER1, COUNT_BOTH_CHANNELS, 1, 100); //prescaler of one with 100 pulses per revolution.
 
 /*interrupt handler. 
   this will called every time the counter goes through zero 
   and increment/decrement the variable depending on the direction of the encoder. 
 */
 void func() {  
-  if (enc.Direction() == POSITIVE) revolutions++;
-  if (enc.Direction() == NEGATIVE) revolutions--;
+  if (enc.getDirection() == POSITIVE) revolutions++;
+  if (enc.getDirection() == NEGATIVE) revolutions--;
 }
 
 //encoder simulation stuff
@@ -64,12 +71,12 @@ void loop(){
 //--------------------------------+ENCODER TEST CODE+-------------------------------    
     //encoder code
   if (millis() - interval >= 1000) { 
-     SerialUSB.print(enc.value()); 
-     SerialUSB.println(" counts");
-     SerialUSB.print("direction ");
-     SerialUSB.println(enc.Direction());
-     SerialUSB.println(enc.getAngle(DEGREES));
-     SerialUSB.println(revolutions);
+     Serial.print(enc.value()); 
+     Serial.println(" counts");
+     Serial.print("direction ");
+     Serial.println(enc.getDirection());
+     Serial.println(enc.getAngle(DEGREES));
+     Serial.println(revolutions);
      interval = millis();
    }
   
@@ -87,8 +94,8 @@ void loop(){
 
 //--------------------------------+SERIAL COMMUNICATION+-------------------------------  
 //take care of comms...
-  if (SerialUSB.available() > 0)
-    switch(SerialUSB.read()) {
+  if (Serial.available() > 0)
+    switch(Serial.read()) {
       case '0': {
         freq = 100;
         break;
