@@ -5,7 +5,9 @@ You can vary the direction by swapping these connections.
 #include <STM32Encoder.h>
 
 //Variables for the encoder
-STM32Encoder rudder(TIMER2, COUNT_BOTH_CHANNELS, 0, 1024);
+//prescaler must be between 1 and 2^16 
+//a prescaler of 2 will get half the counts.
+STM32Encoder rudder(TIMER2, COUNT_BOTH_CHANNELS, 1, 1024);
 unsigned long turns = 0; //this can count the number of turns the encoder gives. 
 
 void countTurns() {

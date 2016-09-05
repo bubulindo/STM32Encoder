@@ -10,7 +10,7 @@ The example below was tested on an Olimexino
 long revolutions = 0;//revolution counter
 
 //Encoder stuff...
-STM32Encoder enc(TIMER1, COUNT_BOTH_CHANNELS, 1, 100); //prescaler of one with 100 pulses per revolution.
+STM32Encoder enc(TIMER1, COUNT_BOTH_CHANNELS, 1, 100); 
 
 /*interrupt handler. 
   this will called every time the counter goes through zero 

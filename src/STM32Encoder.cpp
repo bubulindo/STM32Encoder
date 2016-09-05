@@ -53,7 +53,9 @@ unsigned int STM32Encoder::value() {
 };
 	
 void STM32Encoder::setPrescaler(unsigned int prescale){
-	timer_set_prescaler(_TIMER, prescale); 
+    if (prescale == 0 ) prescale = 1;
+    prescale--;//prescale for users should be between 1 and ~65000
+	timer_set_prescaler(_TIMER, prescale); //prescale for the chip is between 0 and ~65000
 };
 
 unsigned int STM32Encoder::getPrescaler(){
